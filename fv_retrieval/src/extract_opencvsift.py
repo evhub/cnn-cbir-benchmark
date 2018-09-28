@@ -40,7 +40,7 @@ def cpu_task(img_names, db_dir, save_dir):
                     all_strs = locs_str + descs_str
                     f.write(all_strs + '\n')
                 f.close()
-                 
+
             print "%d(%d), %s, desc: %d" %(i+1, len(img_names), line, len(des))
 
 
@@ -50,9 +50,9 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool()
 
     parts = 10
-    txt_path = '../../data/oxford.txt'
-    db_dir = '/home/yuanyong/datasets/oxford'
-    save_dir = '../opencv_sifts/'
+    txt_path = './data/oxford.txt'
+    db_dir = './datasets/oxford'
+    save_dir = './opencv_sifts/'
 
     with open(txt_path, 'r') as f:
         content = f.readlines()

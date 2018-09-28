@@ -7,17 +7,17 @@ import numpy as np
 from yael import ynumpy
 
 
-h5f = h5py.File('../opencv_models/fisher_8192.h5', 'w')
-weights = np.load('../opencv_models/weight.gmm.npy')
-mu = np.load('../opencv_models/mu.gmm.npy')
-sigma = np.load('../opencv_models/sigma.gmm.npy')
-mean = np.load('../opencv_models/mean.gmm.npy')
-pca_transform = np.load('../opencv_models/pca_transform.gmm.npy')
+h5f = h5py.File('./opencv_models/fisher_8192.h5', 'w')
+weights = np.load('./opencv_models/weight.gmm.npy')
+mu = np.load('./opencv_models/mu.gmm.npy')
+sigma = np.load('./opencv_models/sigma.gmm.npy')
+mean = np.load('./opencv_models/mean.gmm.npy')
+pca_transform = np.load('./opencv_models/pca_transform.gmm.npy')
 
 gmm = [weights, mu, sigma]
 
 # read names
-txt_path = '../../data/oxford.txt'
+txt_path = './data/oxford.txt'
 with open(txt_path, 'r') as f:
     content = f.readlines()
     content = [x.strip() for x in content]

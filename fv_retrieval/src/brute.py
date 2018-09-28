@@ -106,12 +106,12 @@ def compute_euclidean_distance(Q, feats, names, k = None):
         k = len(feats)
 
     dists = ((Q - feats)**2).sum(axis=1)
-    idx = np.argsort(dists) 
+    idx = np.argsort(dists)
     dists = dists[idx]
     rank_names = [names[k] for k in idx]
 
     return (idx[:k], dists[:k], rank_names)
-    
+
 
 def simple_query_expansion(Q, data, inds, top_k=10):
     """
@@ -151,7 +151,7 @@ if __name__ == '__main__':
 
     gt_files = '/home/yuanyong/datasets/gt_files'
     dir_images = '/home/yuanyong/datasets/oxford'
- 
+
     # query expansion
     do_QE = False
     topK = 5
@@ -164,7 +164,7 @@ if __name__ == '__main__':
 
     # load all features
     start = timeit.default_timer()
-    h5f = h5py.File('../opencv_models/fisher_8192.h5', 'r')
+    h5f = h5py.File('./opencv_models/fisher_8192.h5', 'r')
     feats = h5f['feats']
     names = list(h5f['names'])
     stop = timeit.default_timer()
@@ -187,16 +187,16 @@ if __name__ == '__main__':
 
     imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
 
-    #print query_names    
+    #print query_names
     aps = []
     rank_file = 'tmp.txt'
     for i, query in enumerate(query_names):
         Q = query_feats[i]
 
         if do_pca:
-            Q, _ = run_feature_processing_pipeline([Q], params=whitening_params)       
+            Q, _ = run_feature_processing_pipeline([Q], params=whitening_params)
             Q = np.squeeze(Q.astype(np.float32))
-  
+
         idxs, rank_dists, rank_names = compute_cosin_distance(Q, feats, names)
         #idxs, rank_dists, rank_names = compute_euclidean_distance(Q, feats, names)
 
@@ -207,7 +207,7 @@ if __name__ == '__main__':
 
         if do_rerank:
             rank_names = reranking(Q, feats, idxs, rank_names, top_k = 50)
- 
+
         # write rank names to txt
         f = open(rank_file, 'w')
         f.writelines([name.split('.jpg')[0] + '\n' for name in rank_names])
@@ -215,7 +215,7 @@ if __name__ == '__main__':
 
         # compute mean average precision
         gt_prefix = os.path.join(gt_files, fake_query_names[i])
-        cmd = '../../tools/compute_ap %s %s' % (gt_prefix, rank_file)
+        cmd = './tools/compute_ap %s %s' % (gt_prefix, rank_file)
         ap = os.popen(cmd).read()
 
         os.remove(rank_file)

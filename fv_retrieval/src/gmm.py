@@ -6,8 +6,8 @@ import os
 import numpy as np
 from yael import ynumpy
 
-txt_path = '../../data/oxford.txt'
-sift_dir = '../opencv_sifts'
+txt_path = './data/oxford.txt'
+sift_dir = './opencv_sifts'
 
 with open(txt_path, 'r') as f:
     content = f.readlines()
@@ -79,8 +79,8 @@ sample = np.dot(sample, pca_transform)
 print "start train GMM ......."
 gmm = ynumpy.gmm_learn(sample, k, nt = 400, niter = 2000, seed = 0, redo = 1, use_weights = True)
 
-np.save("../opencv_models/weight.gmm", gmm[0])
-np.save("../opencv_models/mu.gmm", gmm[1])
-np.save("../opencv_models/sigma.gmm", gmm[2])
-np.save("../opencv_models/mean.gmm", mean)
-np.save("../opencv_models/pca_transform.gmm", pca_transform)
+np.save("./opencv_models/weight.gmm", gmm[0])
+np.save("./opencv_models/mu.gmm", gmm[1])
+np.save("./opencv_models/sigma.gmm", gmm[2])
+np.save("./opencv_models/mean.gmm", mean)
+np.save("./opencv_models/pca_transform.gmm", pca_transform)
