@@ -1,8 +1,6 @@
-.EXPORT_ALL_VARIABLES:
-PYTHONPATH = "./yael"
-
 .PHONY: activate
 activate:
+	export PYTHONPATH="/home/mirlab/cnn-cbir-benchmark/yael"
 	source activate py2
 
 .PHONY: yael
