@@ -25,8 +25,8 @@ clean:
 
 .PHONY: fv
 fv:
-	mkdir ./opencv_models
-	mkdir ./opencv_sifts
+	-mkdir ./opencv_models
+	-mkdir ./opencv_sifts
 	python2 ./fv_retrieval/src/extract_opencvsift.py
 	python2 ./fv_retrieval/src/gmm.py
 	python2 ./fv_retrieval/src/fv.py
