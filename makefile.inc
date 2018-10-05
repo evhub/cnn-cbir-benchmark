@@ -5,8 +5,7 @@ CC=gcc
 CFLAGS=-fPIC -Wall -g -O3 -march=nocona -mtune=haswell -ftree-vectorize -fPIC -fstack-protector-strong -fno-plt -O2 -pipe
 LDFLAGS=-g -fPIC -Wl,-O2 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,--disable-new-dtags
 
-# PYTHONCFLAGS = -I/usr/include/python2.7
-PYTHONCFLAGS = -I/home/mirlab/miniconda3/envs/py2/include
+PYTHONCFLAGS = -I/usr/include/python2.7
 
 YAELCONF=linux64
 YAELCFLAGS=-I/home/mirlab/cnn-cbir-benchmark/yael
@@ -30,7 +29,7 @@ YAELSHAREDFLAGS=-shared
 
 USENUMPY=yes
 # NUMPYCFLAGS=-I/home/mirlab/.local/lib/python2.7/site-packages/numpy/core/include
-NUMPYCFLAGS=-I/home/mirlab/miniconda3/envs/py2/lib/python2.7/site-packages/numpy/core/incl
+NUMPYCFLAGS=-I/home/mirlab/miniconda3/envs/py2/lib/python2.7/site-packages/numpy/core/include
 NUMPYSWIGFLAGS=-DHAVE_NUMPY
 
 
