@@ -1,6 +1,7 @@
-.PHONY: install
-install:
-	python2 -m pip install scikit-learn
+.PHONY: activate
+activate:
+	export PYTHONPATH = "~/yael"
+	source activate py2
 
 .PHONY: clean
 clean:
