@@ -1,11 +1,12 @@
+.EXPORT_ALL_VARIABLES:
+PYTHONPATH = "./yael"
+
 .PHONY: activate
 activate:
-	export PYTHONPATH = "~/yael"
 	source activate py2
 
 .PHONY: yael
 yael:
-	cd ~
 	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
 	cd yael
 	./configure.sh
