@@ -4,7 +4,7 @@
 
 import os,h5py
 import numpy as np
-from yael.yael import ynumpy
+from yael import ynumpy
 
 
 h5f = h5py.File('./opencv_models/fisher_8192.h5', 'w')

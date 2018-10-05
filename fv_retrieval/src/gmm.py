@@ -4,7 +4,7 @@
 
 import os
 import numpy as np
-from yael.yael import ynumpy
+from yael import ynumpy
 
 txt_path = './data/oxford.txt'
 sift_dir = './opencv_sifts'

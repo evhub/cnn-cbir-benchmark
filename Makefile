@@ -1,4 +1,5 @@
-export PYTHONPATH := ${CURDIR}
+SHELL := /bin/bash
+export PYTHONPATH := ${CURDIR}/yael
 
 .PHONY: setup
 setup:
@@ -7,7 +8,9 @@ setup:
 .PHONY: yael
 yael:
 	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
-	cd yael; ./configure.sh
+	source activate py2
+	cd yael; ./configure.sh --enable-numpy
+	source deactivate
 	cd yael; make
 
 .PHONY: clean
