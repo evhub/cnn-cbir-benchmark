@@ -9,7 +9,7 @@ setup:
 yael:
 	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
 	cd yael; source activate py2; ./configure.sh --enable-numpy
-	cd yael; source deactivate; make
+	cd yael; make
 
 .PHONY: clean
 clean:
