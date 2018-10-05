@@ -3,12 +3,12 @@ export PYTHONPATH := ${CURDIR}/yael
 
 .PHONY: setup
 setup:
-	echo ${PYTHONPATH}
+	source activate py2
 
 .PHONY: yael
-yael:
+yael: setup
 	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
-	cd yael; source activate py2; ./configure.sh --enable-numpy
+	cd yael; ./configure.sh --enable-numpy
 	cd yael; make
 
 .PHONY: clean
@@ -18,6 +18,6 @@ clean:
 	find . -name '__pycache__' -delete
 
 .PHONY: fv
-fv:
+fv: setup
 	python2 ./fv_retrieval/src/fv.py
 	python2 ./fv_retrieval/src/brute.py
