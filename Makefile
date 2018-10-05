@@ -4,6 +4,7 @@ export PYTHONPATH := ${CURDIR}/yael
 .PHONY: setup
 setup:
 	source activate py2
+	echo ${PYTHONPATH}
 
 .PHONY: yael
 yael: setup
