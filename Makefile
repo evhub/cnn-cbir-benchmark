@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-export PYTHONPATH := /home/mirlab/miniconda3/envs/py2/lib/python2.7/site-packages;${CURDIR}/yael
+export PYTHONPATH := ${CURDIR}/yael
 
 .PHONY: setup
 setup:
