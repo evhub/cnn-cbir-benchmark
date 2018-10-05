@@ -1,5 +1,8 @@
+export PYTHONPATH := ${CURDIR}
+
 .PHONY: setup
-setup: export PYTHONPATH=${CURDIR}
+setup:
+	echo ${PYTHONPATH}
 
 .PHONY: yael
 yael:
