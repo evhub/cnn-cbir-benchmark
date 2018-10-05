@@ -9,11 +9,12 @@ activate:
 yael:
 	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
 	cd yael
-	./configure.sh
+	configure.sh
 	make
 
 .PHONY: clean
 clean:
+	rm -rf ./yael
 	find . -name '*.pyc' -delete
 	find . -name '__pycache__' -delete
 
