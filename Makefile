@@ -9,5 +9,5 @@ clean:
 
 .PHONY: fv
 fv:
-	python2 fv.py
-	python2 brute.py
+	python2 ./fv_retrieval/src/fv.py
+	python2 ./fv_retrieval/src/brute.py
