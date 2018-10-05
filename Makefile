@@ -1,7 +1,6 @@
-.PHONY: activate
-activate:
-	export PYTHONPATH="/home/mirlab/cnn-cbir-benchmark/yael"
-	source activate py2
+.PHONY: setup
+setup:
+	export PYTHONPATH=${CURDIR}
 
 .PHONY: yael
 yael:
