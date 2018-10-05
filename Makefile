@@ -3,6 +3,14 @@ activate:
 	export PYTHONPATH = "~/yael"
 	source activate py2
 
+.PHONY: yael
+yael:
+	cd ~
+	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
+	cd yael
+	./configure.sh
+	make
+
 .PHONY: clean
 clean:
 	find . -name '*.pyc' -delete
