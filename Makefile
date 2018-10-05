@@ -8,9 +8,8 @@ activate:
 .PHONY: yael
 yael:
 	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
-	cd yael
-	configure.sh
-	make
+	cd yael; ./configure.sh
+	cd yael; make
 
 .PHONY: clean
 clean:
