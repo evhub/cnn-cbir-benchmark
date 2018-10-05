@@ -3,6 +3,7 @@ export PYTHONPATH := ${CURDIR}/yael
 
 .PHONY: setup
 setup:
+	python2 -m pip install numpy h5py scikit-learn opencv-python
 	mkdir ./opencv_models
 	echo "You need to run:"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
@@ -25,6 +26,7 @@ clean:
 
 .PHONY: fv
 fv:
+	python2 ./fv_retrieval/src/extract_opencvsift.py
 	python2 ./fv_retrieval/src/gmm.py
 	python2 ./fv_retrieval/src/fv.py
 	python2 ./fv_retrieval/src/brute.py
