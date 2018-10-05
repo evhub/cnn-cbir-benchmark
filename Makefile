@@ -9,7 +9,7 @@ setup:
 .PHONY: yael
 yael:
 	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
-	cd yael; source activate py2; ./configure.sh --enable-numpy --numpy-cflags="-I/home/mirlab/miniconda3/envs/py2/lib/python2.7/site-packages/numpy/core/include/"
+	cp ./makefile.inc ./yael/makefile.inc
 	cd yael; make
 
 .PHONY: gcc
