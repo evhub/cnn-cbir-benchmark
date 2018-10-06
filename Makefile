@@ -1,21 +1,13 @@
-SHELL := /bin/bash
 export PYTHONPATH := ${CURDIR}/yael
 
 .PHONY: setup
-setup: activate
+setup:
 	python2 -m pip install numpy h5py scikit-learn opencv-python
 	-mkdir ./opencv_models
 	-mkdir ./opencv_sifts
-	echo "You need to run:"
+	echo "You need to run both of the following commands:"
+	echo "source activate py2"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
-
-.PHONY: activate
-activate:
-	source activate py2
-
-.PHONY: deactivate
-deactivate:
-	source deactivate
 
 .PHONY: yael
 yael:
