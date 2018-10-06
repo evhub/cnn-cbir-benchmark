@@ -2,7 +2,7 @@ SHELL := /bin/bash
 export PYTHONPATH := ${CURDIR}/yael
 
 .PHONY: setup
-setup:
+setup: activate
 	python2 -m pip install numpy h5py scikit-learn opencv-python
 	-mkdir ./opencv_models
 	-mkdir ./opencv_sifts
