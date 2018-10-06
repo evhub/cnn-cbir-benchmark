@@ -4,8 +4,18 @@ export PYTHONPATH := ${CURDIR}/yael
 .PHONY: setup
 setup:
 	python2 -m pip install numpy h5py scikit-learn opencv-python
+	-mkdir ./opencv_models
+	-mkdir ./opencv_sifts
 	echo "You need to run:"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
+
+.PHONY: activate
+activate:
+	source activate py2
+
+.PHONY: deactivate
+deactivate:
+	source deactivate
 
 .PHONY: yael
 yael:
@@ -24,9 +34,7 @@ clean:
 	find . -name '__pycache__' -delete
 
 .PHONY: fv
-fv:
-	-mkdir ./opencv_models
-	-mkdir ./opencv_sifts
+fv: setup
 	python2 ./fv_retrieval/src/extract_opencvsift.py
 	python2 ./fv_retrieval/src/gmm.py
 	python2 ./fv_retrieval/src/fv.py
