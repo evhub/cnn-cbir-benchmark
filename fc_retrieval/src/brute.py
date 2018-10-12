@@ -147,7 +147,7 @@ def load_files(files):
 if __name__ == '__main__':
 
     gt_files = './datasets/gt_files'
-    feats_files = './fc_retrieval/feats/*'
+    feats_files = './feats/*'
     dir_images = './datasets/oxford'
 
     # query expansion

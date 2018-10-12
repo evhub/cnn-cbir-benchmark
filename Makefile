@@ -6,6 +6,7 @@ setup:
 	-mkdir ./opencv_models
 	-mkdir ./opencv_sifts
 	-mkdir ./hesaff_sifts
+	-mkdir ./feats
 	echo "You need to run both of the following commands:"
 	echo "source activate py2"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""

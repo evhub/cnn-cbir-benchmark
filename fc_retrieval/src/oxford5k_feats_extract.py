@@ -69,7 +69,7 @@ if __name__ == '__main__':
     prototxt = './fc_retrieval/model/deploy.prototxt'
     caffemodel = './fc_retrieval/model/nueral.caffemodel'
 
-    out = './fc_retrieval/feats/'
+    out = './feats/'
 
     out_files = []
     for i in xrange(parts):
