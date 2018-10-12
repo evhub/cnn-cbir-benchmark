@@ -15,39 +15,39 @@ def split_list(alist, wanted_parts=1):
 
 
 def cpu_task(img_names, db_dir, save_dir):
-    print("Got task for {} images...".format(len(img_names)))
     try:
+        print("Got task for {} images...".format(len(img_names)))
         sift = cv2.xfeatures2d.SIFT_create()
+        for i, line in enumerate(img_names):
+            img_path = os.path.join(db_dir, line)
+            print("\tProcessing image {}/{} at {}...".format(i+1, len(img_names), img_path))
+            img = cv2.imread(img_path, 0)
+            height, width = img.shape[:2]
+            img_resize = cv2.resize(img, (int(0.5*width), int(0.5*height)))
+            kp, des = sift.detectAndCompute(img_resize, None)
+            with open(os.path.join(save_dir, line.split('.jpg')[0] + '.opencv.sift'), 'w') as f:
+                if des is None:
+                    f.write(str(128) + '\n')
+                    f.write(str(0) + '\n')
+                    f.close()
+                    print "Null: %s" % line
+                    continue
+                if len(des) > 0:
+                    f.write(str(128) + '\n')
+                    f.write(str(len(kp)) + '\n')
+                    for j in range(len(des)):
+                        #locs_str = str(int(kp[j].pt.x)) + ' ' + str(int(kp[j].pt.y)) + ' ' + str(int(kp[j].angle)) + ' ' + str(int(kp[j].scale)) + ' ' + str(int(kp[j].octave)) + ' ' # bug
+                        locs_str = '0 0 0 0 0 '
+                        descs_str = " ".join([str(int(value)) for value in des[j]])
+                        all_strs = locs_str + descs_str
+                        f.write(all_strs + '\n')
+                    f.close()
+
+                print "%d(%d), %s, desc: %d" %(i+1, len(img_names), line, len(des))
     except:
         import traceback
         traceback.print_exc()
         raise
-    for i, line in enumerate(img_names):
-        img_path = os.path.join(db_dir, line)
-        print("\tProcessing image {}/{} at {}...".format(i+1, len(img_names), img_path))
-        img = cv2.imread(img_path, 0)
-        height, width = img.shape[:2]
-        img_resize = cv2.resize(img, (int(0.5*width), int(0.5*height)))
-        kp, des = sift.detectAndCompute(img_resize, None)
-        with open(os.path.join(save_dir, line.split('.jpg')[0] + '.opencv.sift'), 'w') as f:
-            if des is None:
-                f.write(str(128) + '\n')
-                f.write(str(0) + '\n')
-                f.close()
-                print "Null: %s" % line
-                continue
-            if len(des) > 0:
-                f.write(str(128) + '\n')
-                f.write(str(len(kp)) + '\n')
-                for j in range(len(des)):
-                    #locs_str = str(int(kp[j].pt.x)) + ' ' + str(int(kp[j].pt.y)) + ' ' + str(int(kp[j].angle)) + ' ' + str(int(kp[j].scale)) + ' ' + str(int(kp[j].octave)) + ' ' # bug
-                    locs_str = '0 0 0 0 0 '
-                    descs_str = " ".join([str(int(value)) for value in des[j]])
-                    all_strs = locs_str + descs_str
-                    f.write(all_strs + '\n')
-                f.close()
-
-            print "%d(%d), %s, desc: %d" %(i+1, len(img_names), line, len(des))
 
 
 if __name__ == '__main__':

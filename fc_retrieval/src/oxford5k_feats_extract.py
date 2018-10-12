@@ -21,32 +21,36 @@ def split_list(alist, wanted_parts=1):
 
 
 def gpu_task(prototxt, caffemodel, layer, path_images, out, gpu=0):
+    try:
+        num_images = len(path_images)
+        h5f = h5py.File(out, 'w')
 
-    num_images = len(path_images)
-    h5f = h5py.File(out, 'w')
+        # set gpu card
+        caffe.set_device(gpu)
+        caffe.set_mode_gpu()
 
-    # set gpu card
-    caffe.set_device(gpu)
-    caffe.set_mode_gpu()
+        # init NN
+        net = caffe.Net(prototxt, caffemodel, caffe.TEST)
+        net.forward()
 
-    # init NN
-    net = caffe.Net(prototxt, caffemodel, caffe.TEST)
-    net.forward()
-
-    features = []
-    image_names = []
-    for i, path in enumerate(path_images):
-        print "%d(%d), %s"%((i+1), num_images, os.path.basename(path))
-        d = opencv_format_img_for_vgg(path, True)
-        feat = extract_fc_features(net, layer, d)
-        #features.append(feat.tolist())
-        features.append(np.array(feat))
-        image_names.append(os.path.basename(path))
-    features = np.array(features)
-    h5f['feats'] = features
-    h5f['names'] = image_names
-    h5f.close()
-    print "gpu %d task has finished..." % (int(gpu))
+        features = []
+        image_names = []
+        for i, path in enumerate(path_images):
+            print "%d(%d), %s"%((i+1), num_images, os.path.basename(path))
+            d = opencv_format_img_for_vgg(path, True)
+            feat = extract_fc_features(net, layer, d)
+            #features.append(feat.tolist())
+            features.append(np.array(feat))
+            image_names.append(os.path.basename(path))
+        features = np.array(features)
+        h5f['feats'] = features
+        h5f['names'] = image_names
+        h5f.close()
+        print "gpu %d task has finished..." % (int(gpu))
+    except:
+        import traceback
+        traceback.print_exc()
+        raise
 
 if __name__ == '__main__':
 

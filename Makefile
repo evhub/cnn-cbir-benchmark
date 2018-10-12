@@ -2,7 +2,7 @@ export PYTHONPATH := ${CURDIR}/yael
 
 .PHONY: setup
 setup:
-	python2 -m pip install numpy h5py scikit-learn
+	python2 -m pip install numpy h5py scikit-learn opencv-contrib-python==3.4.2.16
 	-mkdir ./opencv_models
 	-mkdir ./opencv_sifts
 	-mkdir ./hesaff_sifts
@@ -18,12 +18,12 @@ yael:
 
 .PHONY: opencv
 opencv:
-	cd ~; git clone https://github.com/Itseez/opencv.git
+	-cd ~; git clone https://github.com/Itseez/opencv.git
 	cd ~/opencv; git checkout 3.0.0
-	cd ~; git clone https://github.com/Itseez/opencv_contrib.git
+	-cd ~; git clone https://github.com/Itseez/opencv_contrib.git
 	cd ~/opencv_contrib; git checkout 3.0.0
-	mkdir ~/opencv/build
-	cd ~/opencv/build; cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/usr/local -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules -Wno-dev ..
+	-mkdir ~/opencv/build
+	cd ~/opencv/build; cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/usr/local -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules -DOPENCV_ENABLE_NONFREE=ON -Wno-dev ..
 	cd ~/opencv/build; make -j4
 	cd ~/opencv/build; sudo make install
 	sudo ldconfig
