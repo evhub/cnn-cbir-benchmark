@@ -58,14 +58,14 @@ if __name__ == '__main__':
     parts = len(gpusID)
     network = 'VggNet'
 
-    dir_images = '/home/yuanyong/datasets/oxford/*'
+    dir_images = './datasets/oxford/*'
     path_images = [os.path.join(dir_images, f) for f in sorted(glob.glob(dir_images))] #if f.endswith('.jpg')]
 
     # VggNet
-    prototxt = '/home/yuanyong/py/fc_retrieval/model/deploy.prototxt'
-    caffemodel = '/home/yuanyong/py/fc_retrieval/model/nueral.caffemodel'
+    prototxt = './fc_retrieval/model/deploy.prototxt'
+    caffemodel = './fc_retrieval/model/nueral.caffemodel'
 
-    out = '../feats/'
+    out = './fc_retrieval/feats/'
 
     out_files = []
     for i in xrange(parts):

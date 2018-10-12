@@ -31,3 +31,15 @@ fv: setup
 	python2 ./fv_retrieval/src/gmm.py
 	python2 ./fv_retrieval/src/fv.py
 	python2 ./fv_retrieval/src/brute.py
+
+.PHONY: fc
+fc: setup
+	python2 ./fc_retrieval/src/oxford5k_feats_extract.py
+	python2 ./fc_retrieval/src/brute.py
+
+.PHONY: vlad
+vlad: setup
+	python2 ./vlad_retrieval/src/brute.py
+
+.PHONY: all
+all: fv fc vlad

@@ -14,7 +14,7 @@ pca_transform = np.load('./models/pca_data.npy')
 mean = np.load('./models/mean_data.npy')
 
 #
-txt_path = '/home/yuanyong/py/fv_retrieval/oxford.txt'
+txt_path = './data/oxford.txt'
 with open(txt_path, 'r') as f:
     content = f.readlines()
     content = [x.strip() for x in content]

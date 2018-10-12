@@ -45,9 +45,9 @@ def query_images(groundtruth_dir, image_dir, dataset, cropped=True):
     imgs = []
     query_names = []
     fake_query_names = []
-    feats_crop = [] 
-   
-    modelDir = "/home/yuanyong/py/fc_retrieval/model"
+    feats_crop = []
+
+    modelDir = "./fc_retrieval/model"
     MODEL = "nueral.caffemodel"
     PROTO = "deploy.prototxt"
     caffemodel = os.path.join(modelDir, MODEL)
@@ -106,15 +106,15 @@ def compute_euclidean_distance(Q, feats, names, k = None):
         k = len(feats)
 
     dists = ((Q - feats)**2).sum(axis=1)
-    idx = np.argsort(dists) 
+    idx = np.argsort(dists)
     dists = dists[idx]
     rank_names = [names[k] for k in idx]
     return (idx[:k], dists[:k], rank_names)
-    
+
 
 def simple_query_expansion(Q, data, inds, top_k = 10):
     #Q += data[inds[:top_k], :].sum(axis=0)
-       
+
     # weighted query
     for i in range(top_k):
         Q += (1.0*(top_k-i)/float(top_k))*data[inds[i], :]
@@ -128,7 +128,7 @@ def reranking(Q, data, inds, names, top_k = 50):
         vecs_sum += data[inds[i], :]
     vec_mean = vecs_sum/float(top_k)
     Q = normalize(Q - vec_mean)
-    for i in range(top_k): 
+    for i in range(top_k):
         data[i, :] = normalize(data[i, :] - vec_mean)
     sub_data = data[:top_k]
     sub_idxs, sub_rerank_dists, sub_rerank_names = compute_cosin_distance(Q, sub_data, names[:top_k])
@@ -146,10 +146,10 @@ def load_files(files):
 
 if __name__ == '__main__':
 
-    gt_files = '/home/yuanyong/datasets/gt_files'
-    feats_files = '/home/yuanyong/py/fc_retrieval/feats/*'
-    dir_images = '/home/yuanyong/datasets/oxford'
- 
+    gt_files = './datasets/gt_files'
+    feats_files = './fc_retrieval/feats/*'
+    dir_images = './datasets/oxford'
+
     # query expansion
     do_QE = False
     topK = 10
@@ -176,16 +176,16 @@ if __name__ == '__main__':
 
     imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', do_crop)
 
-    #print query_names    
+    #print query_names
     aps = []
     rank_file = 'tmp.txt'
     for i, query in enumerate(query_names):
         Q = query_feats[i]
 
         if do_pca:
-            Q, _ = run_feature_processing_pipeline([Q], params=whitening_params)       
+            Q, _ = run_feature_processing_pipeline([Q], params=whitening_params)
             Q = np.squeeze(Q.astype(np.float32))
-  
+
         idxs, rank_dists, rank_names = compute_cosin_distance(Q, feats, names)
         #idxs, rank_dists, rank_names = compute_euclidean_distance(Q, feats, names)
 
@@ -193,7 +193,7 @@ if __name__ == '__main__':
             Q = simple_query_expansion(Q, feats, idxs, top_k = topK)
             idxs, rank_dists, rank_names = compute_cosin_distance(Q, feats, names)
             #idxs, rank_dists, rank_names = compute_euclidean_distance(Q, feats, names)
-        
+
         if do_rerank:
             rank_names = reranking(Q, feats, idxs, rank_names, top_k = 10)
 
