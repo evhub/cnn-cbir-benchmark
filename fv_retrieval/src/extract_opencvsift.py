@@ -19,7 +19,7 @@ def cpu_task(img_names, db_dir, save_dir):
     sift = cv2.xfeatures2d.SIFT_create()
     for i, line in enumerate(img_names):
         img_path = os.path.join(db_dir, line)
-        print img_path
+        print("\tProcessing image {}/{} at {}...".format(i+1, len(img_names), img_path))
         img = cv2.imread(img_path, 0)
         height, width = img.shape[:2]
         img_resize = cv2.resize(img, (int(0.5*width), int(0.5*height)))
@@ -60,7 +60,7 @@ if __name__ == '__main__':
         content = [x.strip() for x in content]
     blocks = split_list(content, wanted_parts = parts)
     for i in xrange(0, parts):
-        print("Sending task {}/{} for {}/{} images...".format(i, parts, len(blocks[i]), len(content)))
+        print("Sending task {}/{} for {}/{} images...".format(i+1, parts, len(blocks[i]), len(content)))
         pool.apply_async(cpu_task, args=(blocks[i], db_dir, save_dir,))
     pool.close()
     pool.join()
