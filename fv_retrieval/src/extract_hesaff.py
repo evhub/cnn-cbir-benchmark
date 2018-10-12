@@ -34,7 +34,7 @@ if __name__ == '__main__':
     parts = 10
     bbin = './hesaff/hesaff'
     txt_path = './data/oxford.txt'
-    db_dir = '.'
+    db_dir = './datasets/oxford'
     save_dir = './hesaff_sifts/'
 
     with open(txt_path, 'r') as f:
