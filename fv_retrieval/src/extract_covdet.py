@@ -39,5 +39,5 @@ def cpu_task(img_names, bbin, db_dir, save_dir):
 
 #     for i in xrange(0, parts):
 #         pool.apply_async(cpu_task, args=(blocks[i], bbin, db_dir, save_dir,))
-#     pool.join()
 #     pool.close()
+#     pool.join()

@@ -60,5 +60,5 @@ if __name__ == '__main__':
     blocks = split_list(content, wanted_parts = parts)
     for i in xrange(0, parts):
         pool.apply_async(cpu_task, args=(blocks[i], db_dir, save_dir,))
-    pool.join()
     pool.close()
+    pool.join()

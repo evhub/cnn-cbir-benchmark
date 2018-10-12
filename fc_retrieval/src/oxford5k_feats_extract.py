@@ -75,5 +75,5 @@ if __name__ == '__main__':
 
     for i in xrange(0, parts):
         pool.apply_async(gpu_task, args = (prototxt, caffemodel, layer, blocks[i], out_files[i], gpusID[i],))
-    pool.join()
     pool.close()
+    pool.join()
