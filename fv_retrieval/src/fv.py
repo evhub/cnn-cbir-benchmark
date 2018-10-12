@@ -23,7 +23,7 @@ with open(txt_path, 'r') as f:
     content = [x.strip() for x in content]
 
 # fv encoding
-hesaff_sift_path = '../opencv_sifts/'
+hesaff_sift_path = './opencv_sifts/'
 features = []
 image_names = []
 for i, line in enumerate(content):

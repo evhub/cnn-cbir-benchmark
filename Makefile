@@ -5,6 +5,7 @@ setup:
 	python2 -m pip install numpy h5py scikit-learn opencv-python
 	-mkdir ./opencv_models
 	-mkdir ./opencv_sifts
+	-mkdir ./hesaff_sifts
 	echo "You need to run both of the following commands:"
 	echo "source activate py2"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
@@ -39,6 +40,9 @@ fc: setup
 
 .PHONY: vlad
 vlad: setup
+	python2 ./fv_retrieval/src/extract_hesaff.py
+	python2 ./vlad_retrieval/src/kmeans.py
+	python2 ./vlad_retrieval/src/vlad.py
 	python2 ./vlad_retrieval/src/brute.py
 
 .PHONY: all

@@ -25,7 +25,7 @@ image_names = []
 for i, line in enumerate(content):
     img_name = os.path.basename(line)
     print "%d(%d): %s" %(i+1, len(content), img_name)
-    hesaff_path = os.path.join('/home/yuanyong/py/fv_retrieval/oxford_hesaff_sift', os.path.splitext(os.path.basename(line))[0] + '.hesaff.sift')
+    hesaff_path = os.path.join('./hesaff_sifts', os.path.splitext(os.path.basename(line))[0] + '.hesaff.sift')
     hesaff_info = np.loadtxt(hesaff_path)
     if hesaff_info.shape[0] == 0:
         hesaff_info = np.zeros((1, 133), dtype = 'float32')

@@ -28,9 +28,9 @@ def cpu_task(img_names, bbin, db_dir, save_dir):
 
 #     parts = 10
 #     bbin = '/home/yuanyong/cpp/covdet/build/demo'
-#     txt_path = '../../data/oxford.txt'
-#     db_dir = '/home/yuanyong/datasets/oxford'
-#     save_dir = '../covdet_sifts/'
+#     txt_path = './data/oxford.txt'
+#     db_dir = './datasets/oxford'
+#     save_dir = './covdet_sifts/'
 
 #     with open(txt_path, 'r') as f:
 #         content = f.readlines()
@@ -39,5 +39,5 @@ def cpu_task(img_names, bbin, db_dir, save_dir):
 
 #     for i in xrange(0, parts):
 #         pool.apply_async(cpu_task, args=(blocks[i], bbin, db_dir, save_dir,))
-#     pool.close()
 #     pool.join()
+#     pool.close()

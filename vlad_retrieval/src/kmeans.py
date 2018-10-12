@@ -8,7 +8,7 @@ import time
 
 
 txt_path = './data/oxford.txt'
-sift_dir = '/home/yuanyong/py/fv_retrieval/oxford_hesaff_sift'
+sift_dir = './hesaff_sifts/'  # '/home/yuanyong/py/fv_retrieval/oxford_hesaff_sift'
 
 with open(txt_path, 'r') as f:
     content = f.readlines()
