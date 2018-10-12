@@ -15,6 +15,7 @@ def split_list(alist, wanted_parts=1):
 
 
 def cpu_task(img_names, db_dir, save_dir):
+    print("Got task for {} images...".format(len(img_names)))
     sift = cv2.xfeatures2d.SIFT_create()
     for i, line in enumerate(img_names):
         img_path = os.path.join(db_dir, line)
@@ -59,6 +60,7 @@ if __name__ == '__main__':
         content = [x.strip() for x in content]
     blocks = split_list(content, wanted_parts = parts)
     for i in xrange(0, parts):
+        print("Sending task {}/{} for {}/{} images...".format(i, parts, len(blocks[i]), len(content)))
         pool.apply_async(cpu_task, args=(blocks[i], db_dir, save_dir,))
     pool.close()
     pool.join()
