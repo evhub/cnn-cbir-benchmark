@@ -17,18 +17,10 @@ yael:
 	cp ./makefile.inc ./yael/makefile.inc
 	cd yael; make
 
-.PHONY: opencv
-opencv:
-	-cd ~; git clone https://github.com/Itseez/opencv.git
-	cd ~/opencv; git checkout 3.0.0
-	-cd ~; git clone https://github.com/Itseez/opencv_contrib.git
-	cd ~/opencv_contrib; git checkout 3.0.0
-	-mkdir ~/opencv/build
-	cd ~/opencv/build; cmake -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_INSTALL_PREFIX=/usr/local -DOPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules -DOPENCV_ENABLE_NONFREE=ON -Wno-dev ..
-	cd ~/opencv/build; make -j4
-	cd ~/opencv/build; sudo make install
-	sudo ldconfig
-	cd /usr/lib/python2.7/site-packages/; ln -s /usr/local/lib/python2.7/site-packages/cv2.so ~/opencv/build/cv2.so
+.PHONY: hesaff
+hesaff:
+	git clone https://github.com/perdoch/hesaff.git
+	cd hesaff; make
 
 .PHONY: gcc
 gcc:
