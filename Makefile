@@ -19,7 +19,7 @@ yael:
 
 .PHONY: hesaff
 hesaff:
-	git clone https://github.com/perdoch/hesaff.git
+	-git clone https://github.com/evhub/hesaff.git
 	cd hesaff; make
 
 .PHONY: gcc
@@ -28,7 +28,7 @@ gcc:
 
 .PHONY: clean
 clean:
-	rm -rf ./yael
+	rm -rf ./yael ./hesaff
 	find . -name '*.pyc' -delete
 	find . -name '__pycache__' -delete
 
