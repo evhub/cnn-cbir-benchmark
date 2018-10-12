@@ -16,7 +16,12 @@ def split_list(alist, wanted_parts=1):
 
 def cpu_task(img_names, db_dir, save_dir):
     print("Got task for {} images...".format(len(img_names)))
-    sift = cv2.xfeatures2d.SIFT_create()
+    try:
+        sift = cv2.xfeatures2d.SIFT_create()
+    except:
+        import traceback
+        traceback.print_exc()
+        raise
     for i, line in enumerate(img_names):
         img_path = os.path.join(db_dir, line)
         print("\tProcessing image {}/{} at {}...".format(i+1, len(img_names), img_path))

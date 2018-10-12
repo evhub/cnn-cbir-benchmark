@@ -2,7 +2,7 @@ export PYTHONPATH := ${CURDIR}/yael
 
 .PHONY: setup
 setup:
-	python2 -m pip install numpy h5py scikit-learn opencv-python
+	python2 -m pip install numpy h5py scikit-learn
 	-mkdir ./opencv_models
 	-mkdir ./opencv_sifts
 	-mkdir ./hesaff_sifts
