@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     # VggNet
     prototxt = './fc_retrieval/model/deploy.prototxt'
-    caffemodel = './fc_retrieval/model/nueral.caffemodel'
+    caffemodel = './fc_retrieval/model/neural.caffemodel'
 
     out = './feats/'
 
