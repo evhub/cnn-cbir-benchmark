@@ -48,7 +48,7 @@ def query_images(groundtruth_dir, image_dir, dataset, cropped=True):
     feats_crop = []
 
     modelDir = "./fc_retrieval/model"
-    MODEL = "nueral.caffemodel"
+    MODEL = "neural.caffemodel"
     PROTO = "deploy.prototxt"
     caffemodel = os.path.join(modelDir, MODEL)
     prototxt = os.path.join(modelDir, PROTO)
