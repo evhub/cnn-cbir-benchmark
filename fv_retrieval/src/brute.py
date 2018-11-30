@@ -210,8 +210,11 @@ if __name__ == '__main__':
     imgs, query_feats, query_names = query_score_images(query_paths, names, feats)
 
     #print query_names
-    aps = []
-    rank_file = 'tmp.txt'
+    # aps = []
+    # rank_file = 'tmp.txt'
+
+    query_rankings = []
+
     for i, query in enumerate(query_names):
         Q = query_feats[i]
 
@@ -230,7 +233,16 @@ if __name__ == '__main__':
         if do_rerank:
             rank_names = reranking(Q, feats, idxs, rank_names, top_k = 50)
 
-        print("rank_names = {}".format(rank_names))
+        from score_retrieval.data import get_basename_to_path_dict
+        basename_to_path = get_basename_to_path_dict()
+
+        rank_paths = [
+            basename_to_path[name] for name in rank_names
+        ]
+
+        from score_retrieval.eval import path_ranking_to_index_ranking
+        query_ranking = path_ranking_to_index_ranking(rank_paths)
+        query_rankings.append(query_ranking)
 
         # # write rank names to txt
         # f = open(rank_file, 'w')
@@ -246,7 +258,13 @@ if __name__ == '__main__':
 
         # aps.append(float(ap.strip()))
 
-        print "%s, %f" %(query, float(ap.strip()))
+        # print "%s, %f" %(query, float(ap.strip()))
 
-    print
-    print "mAP: %f" % np.array(aps).mean()
+    # print
+    # print "mAP: %f" % np.array(aps).mean()
+
+    from score_retrieval.eval import compute_mrr, compute_acc
+    mrr = compute_mrr(query_rankings)
+    acc = compute_acc(query_rankings)
+
+    print("MRR = {}, accuracy = {}".format(mrr, acc))
