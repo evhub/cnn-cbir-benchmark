@@ -233,15 +233,19 @@ if __name__ == '__main__':
         if do_rerank:
             rank_names = reranking(Q, feats, idxs, rank_names, top_k = 50)
 
+        # get proper ranking for score_retrieval.eval
         from score_retrieval.data import get_basename_to_path_dict
         basename_to_path = get_basename_to_path_dict()
 
-        rank_paths = [
-            basename_to_path[name] for name in rank_names
-        ]
+        from score_retrieval.data import database_paths
+        path_ranking = []
+        for name in rank_names:
+            path = basename_to_path[name]
+            if path in database_paths:
+                path_ranking.append(path)
 
         from score_retrieval.eval import path_ranking_to_index_ranking
-        query_ranking = path_ranking_to_index_ranking(rank_paths)
+        query_ranking = path_ranking_to_index_ranking(path_ranking)
         query_rankings.append(query_ranking)
 
         # # write rank names to txt
