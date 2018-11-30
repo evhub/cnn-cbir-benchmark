@@ -206,8 +206,7 @@ if __name__ == '__main__':
         feats, _ = run_feature_processing_pipeline(feats, params=whitening_params)
 
     # imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
-    from score_retrieval.data import index_data
-    database_paths, database_labels, query_paths, query_labels = index_data()
+    from score_retrieval.data import query_paths
     imgs, query_feats, query_names = query_scores(query_paths, names)
 
     #print query_names

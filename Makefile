@@ -38,23 +38,20 @@ clean:
 	find . -name '__pycache__' -delete
 
 .PHONY: fv
-fv:
-	python ./fv_retrieval/src/extract_opencvsift.py
-	python ./fv_retrieval/src/gmm.py
-	python ./fv_retrieval/src/fv.py
-	python ./fv_retrieval/src/brute.py
+fv: minidataset
+	python2 ./fv_retrieval/src/extract_opencvsift.py
+	python2 ./fv_retrieval/src/gmm.py
+	python2 ./fv_retrieval/src/fv.py
+	python2 ./fv_retrieval/src/brute.py
 
 .PHONY: fc
-fc:
-	python ./fc_retrieval/src/oxford5k_feats_extract.py
-	python ./fc_retrieval/src/brute.py
+fc: minidataset
+	python2 ./fc_retrieval/src/oxford5k_feats_extract.py
+	python2 ./fc_retrieval/src/brute.py
 
 .PHONY: vlad
-vlad:
-	python ./fv_retrieval/src/extract_hesaff.py
-	python ./vlad_retrieval/src/kmeans.py
-	python ./vlad_retrieval/src/vlad.py
-	python ./vlad_retrieval/src/brute.py
-
-.PHONY: all
-all: fv fc vlad
+vlad: minidataset
+	python2 ./fv_retrieval/src/extract_hesaff.py
+	python2 ./vlad_retrieval/src/kmeans.py
+	python2 ./vlad_retrieval/src/vlad.py
+	python2 ./vlad_retrieval/src/brute.py
