@@ -25,7 +25,7 @@ def cpu_task(img_names, db_dir, save_dir):
             height, width = img.shape[:2]
             img_resize = cv2.resize(img, (int(0.5*width), int(0.5*height)))
             kp, des = sift.detectAndCompute(img_resize, None)
-            with open(os.path.join(save_dir, line.split('.jpg')[0] + '.opencv.sift'), 'w') as f:
+            with open(os.path.join(save_dir, os.path.splitext(os.path.basename(line))[0] + '.opencv.sift'), 'w') as f:
                 if des is None:
                     f.write(str(128) + '\n')
                     f.write(str(0) + '\n')

@@ -48,18 +48,22 @@ def normalize(x, copy=False):
 
 def query_scores(query_paths, names):
     """Extract features from the scores dataset."""
+    query_names = []
     imgs = []
     feats = []
 
     for path in query_paths:
+        name = os.path.splitext(os.path.basename(path))[0]
+        query_names.append(name)
+
         img = cv2.imread(path, 1)
         imgs.append(img)
 
-        idx = names.index(path)
+        idx = names.index(name)
         feat = feats[idx]
         feats.append(feat)
 
-    return imgs, feats
+    return query_names, imgs, feats
 
 
 def query_images(groundtruth_dir, image_dir, dataset, names, cropped=True):
@@ -204,8 +208,7 @@ if __name__ == '__main__':
     # imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
     from score_retrieval.data import index_data
     database_paths, database_labels, query_paths, query_labels = index_data()
-    query_names = fake_query_names = query_paths
-    imgs, query_feats = query_scores(query_paths, names)
+    imgs, query_feats, query_names = query_scores(query_paths, names)
 
     #print query_names
     aps = []
