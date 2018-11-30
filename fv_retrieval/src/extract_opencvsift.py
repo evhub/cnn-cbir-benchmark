@@ -56,8 +56,8 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool()
 
     parts = 10
-    txt_path = './data/oxford.txt'
-    db_dir = './datasets/oxford'
+    txt_path = './data/minidataset.txt'
+    db_dir = ''  # ./datasets/oxford
     save_dir = './opencv_sifts/'
 
     with open(txt_path, 'r') as f:

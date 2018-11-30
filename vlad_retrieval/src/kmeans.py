@@ -7,7 +7,7 @@ from yael import ynumpy
 import time
 
 
-txt_path = './data/oxford.txt'
+txt_path = './data/minidataset.txt'
 sift_dir = './hesaff_sifts/'  # '/home/yuanyong/py/fv_retrieval/oxford_hesaff_sift'
 
 with open(txt_path, 'r') as f:

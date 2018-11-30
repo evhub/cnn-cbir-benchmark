@@ -6,7 +6,7 @@ import os
 import numpy as np
 from yael import ynumpy
 
-txt_path = './data/oxford.txt'
+txt_path = './data/minidataset.txt'
 sift_dir = './opencv_sifts'
 
 with open(txt_path, 'r') as f:

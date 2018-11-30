@@ -46,6 +46,22 @@ def normalize(x, copy=False):
         #return x / np.sqrt((x ** 2).sum(-1))[..., np.newaxis]
 
 
+def query_scores(query_paths, names):
+    """Extract features from the scores dataset."""
+    imgs = []
+    feats = []
+
+    for path in query_paths:
+        img = cv2.imread(path, 1)
+        imgs.append(img)
+
+        idx = names.index(path)
+        feat = feats[idx]
+        feats.append(feat)
+
+    return imgs, feats
+
+
 def query_images(groundtruth_dir, image_dir, dataset, names, cropped=True):
     """
     Extract features from the Oxford or Paris dataset.
@@ -149,14 +165,14 @@ def reranking(Q, data, inds, names, top_k = 50):
 
 if __name__ == '__main__':
 
-    gt_files = '/home/yuanyong/datasets/gt_files'
-    dir_images = '/home/yuanyong/datasets/oxford'
+    # gt_files = '/home/yuanyong/datasets/gt_files'
+    # dir_images = '/home/yuanyong/datasets/oxford'
 
     # query expansion
     do_QE = False
     topK = 5
     # crop
-    do_crop = False
+    # do_crop = False
     # reduced dim
     do_pca = False
     redud_d = 128
@@ -185,7 +201,11 @@ if __name__ == '__main__':
         _, whitening_params = run_feature_processing_pipeline(feats, d=redud_d, copy=True)
         feats, _ = run_feature_processing_pipeline(feats, params=whitening_params)
 
-    imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
+    # imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
+    from score_retrieval.data import index_data
+    database_paths, database_labels, query_paths, query_labels = index_data()
+    query_names = fake_query_names = query_paths
+    imgs, query_feats = query_scores(query_paths, names)
 
     #print query_names
     aps = []
@@ -208,19 +228,21 @@ if __name__ == '__main__':
         if do_rerank:
             rank_names = reranking(Q, feats, idxs, rank_names, top_k = 50)
 
-        # write rank names to txt
-        f = open(rank_file, 'w')
-        f.writelines([name.split('.jpg')[0] + '\n' for name in rank_names])
-        f.close()
+        print("rank_names =", rank_names)
 
-        # compute mean average precision
-        gt_prefix = os.path.join(gt_files, fake_query_names[i])
-        cmd = './tools/compute_ap %s %s' % (gt_prefix, rank_file)
-        ap = os.popen(cmd).read()
+        # # write rank names to txt
+        # f = open(rank_file, 'w')
+        # f.writelines([name.split('.jpg')[0] + '\n' for name in rank_names])
+        # f.close()
 
-        os.remove(rank_file)
+        # # compute mean average precision
+        # gt_prefix = os.path.join(gt_files, fake_query_names[i])
+        # cmd = './tools/compute_ap %s %s' % (gt_prefix, rank_file)
+        # ap = os.popen(cmd).read()
 
-        aps.append(float(ap.strip()))
+        # os.remove(rank_file)
+
+        # aps.append(float(ap.strip()))
 
         print "%s, %f" %(query, float(ap.strip()))
 

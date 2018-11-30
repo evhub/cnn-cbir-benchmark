@@ -26,23 +26,23 @@ def cpu_task(img_names, bbin, db_dir, save_dir):
         raise
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
 
-#     multiprocessing.freeze_support()
-#     pool = multiprocessing.Pool()
+    multiprocessing.freeze_support()
+    pool = multiprocessing.Pool()
 
-#     parts = 10
-#     bbin = '/home/yuanyong/cpp/covdet/build/demo'
-#     txt_path = './data/oxford.txt'
-#     db_dir = './datasets/oxford'
-#     save_dir = './covdet_sifts/'
+    parts = 10
+    bbin = '/home/yuanyong/cpp/covdet/build/demo'
+    txt_path = './data/minidataset.txt'
+    db_dir = ''  # ./datasets/oxford
+    save_dir = './covdet_sifts/'
 
-#     with open(txt_path, 'r') as f:
-#         content = f.readlines()
-#         content = [x.strip() for x in content]
-#     blocks = split_list(content, wanted_parts = parts)
+    with open(txt_path, 'r') as f:
+        content = f.readlines()
+        content = [x.strip() for x in content]
+    blocks = split_list(content, wanted_parts = parts)
 
-#     for i in xrange(0, parts):
-#         pool.apply_async(cpu_task, args=(blocks[i], bbin, db_dir, save_dir,))
-#     pool.close()
-#     pool.join()
+    for i in xrange(0, parts):
+        pool.apply_async(cpu_task, args=(blocks[i], bbin, db_dir, save_dir,))
+    pool.close()
+    pool.join()
