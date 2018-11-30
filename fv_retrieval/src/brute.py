@@ -53,7 +53,7 @@ def query_score_images(query_paths, names):
     feats = []
 
     for path in query_paths:
-        name = os.path.splitext(os.path.basename(path))[0]
+        name = os.path.basename(path)
         query_names.append(name)
 
         img = cv2.imread(path, 1)
@@ -204,8 +204,6 @@ if __name__ == '__main__':
         #        whitening_params['pca'] = pickle.load(f)
         _, whitening_params = run_feature_processing_pipeline(feats, d=redud_d, copy=True)
         feats, _ = run_feature_processing_pipeline(feats, params=whitening_params)
-
-    print("names = {}".format(names))
 
     # imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
     from score_retrieval.data import query_paths
