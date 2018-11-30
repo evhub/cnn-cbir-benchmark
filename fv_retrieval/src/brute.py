@@ -46,11 +46,11 @@ def normalize(x, copy=False):
         #return x / np.sqrt((x ** 2).sum(-1))[..., np.newaxis]
 
 
-def query_score_images(query_paths, names):
+def query_score_images(query_paths, names, feats):
     """Extract features from the scores dataset."""
     query_names = []
     imgs = []
-    feats = []
+    query_feats = []
 
     for path in query_paths:
         name = os.path.basename(path)
@@ -61,9 +61,9 @@ def query_score_images(query_paths, names):
 
         idx = names.index(name)
         feat = feats[idx]
-        feats.append(feat)
+        query_feats.append(feat)
 
-    return query_names, imgs, feats
+    return imgs, query_feats, query_names
 
 
 def query_images(groundtruth_dir, image_dir, dataset, names, cropped=True):
@@ -207,7 +207,7 @@ if __name__ == '__main__':
 
     # imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
     from score_retrieval.data import query_paths
-    imgs, query_feats, query_names = query_score_images(query_paths, names)
+    imgs, query_feats, query_names = query_score_images(query_paths, names, feats)
 
     #print query_names
     aps = []
