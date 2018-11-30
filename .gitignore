@@ -112,3 +112,6 @@ ENV/
 # Ignored subdirectories
 yael/
 datasets/
+feats/
+hesaff/
+opencv_sifts/
