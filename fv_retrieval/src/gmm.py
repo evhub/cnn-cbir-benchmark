@@ -50,8 +50,8 @@ all_desc = np.sqrt(np.vstack(all_desc))
 #    all_desc[i] = np.sign(all_desc[i]) * np.log(1.0 + np.abs(all_desc[i]))
 
 
-k = 64  # 128
-n_sample = 256 * 1000
+k = 32  # 128
+n_sample = 256 * 100  # 256 * 1000
 
 # choose n_sample descriptors at random
 np.random.seed(1024)
@@ -69,7 +69,7 @@ cov = np.dot(sample.T, sample)
 # compute PCA matrix and keep only 64 dimensions
 eigvals, eigvecs = np.linalg.eig(cov)
 perm = eigvals.argsort()                   # sort by increasing eigenvalue
-print("perm.shape =", perm.shape)
+print("perm.shape = {}".format(perm.shape))
 pca_transform = eigvecs[:, perm[96:128]]   # eigenvectors for the 64 last eigenvalues
 
 # transform sample with PCA (note that numpy imposes line-vectors,
@@ -79,7 +79,7 @@ sample = np.dot(sample, pca_transform)
 # train GMM
 print "start train GMM ......."
 # gmm = ynumpy.gmm_learn(sample, k, nt = 400, niter = 2000, seed = 0, redo = 1, use_weights = True)
-gmm = ynumpy.gmm_learn(sample, k, nt = 100, niter = 2000, seed = 0, redo = 1, use_weights = True)
+gmm = ynumpy.gmm_learn(sample, k, nt = 50, niter = 1000, seed = 0, redo = 1, use_weights = True)
 
 np.save("./opencv_models/weight.gmm", gmm[0])
 np.save("./opencv_models/mu.gmm", gmm[1])

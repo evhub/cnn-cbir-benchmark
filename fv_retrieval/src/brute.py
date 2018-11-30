@@ -46,7 +46,7 @@ def normalize(x, copy=False):
         #return x / np.sqrt((x ** 2).sum(-1))[..., np.newaxis]
 
 
-def query_scores(query_paths, names):
+def query_score_images(query_paths, names):
     """Extract features from the scores dataset."""
     query_names = []
     imgs = []
@@ -205,9 +205,11 @@ if __name__ == '__main__':
         _, whitening_params = run_feature_processing_pipeline(feats, d=redud_d, copy=True)
         feats, _ = run_feature_processing_pipeline(feats, params=whitening_params)
 
+    print("names = {}".format(names))
+
     # imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
     from score_retrieval.data import query_paths
-    imgs, query_feats, query_names = query_scores(query_paths, names)
+    imgs, query_feats, query_names = query_score_images(query_paths, names)
 
     #print query_names
     aps = []
@@ -230,7 +232,7 @@ if __name__ == '__main__':
         if do_rerank:
             rank_names = reranking(Q, feats, idxs, rank_names, top_k = 50)
 
-        print("rank_names =", rank_names)
+        print("rank_names = {}".format(rank_names))
 
         # # write rank names to txt
         # f = open(rank_file, 'w')
