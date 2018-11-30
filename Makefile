@@ -4,10 +4,10 @@ export LD_LIBRARY_PATH := "/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/li
 .PHONY: setup
 setup:
 	python2 -m pip install numpy h5py scikit-learn opencv-contrib-python==3.4.2.16
-	-mkdir ./opencv_models
-	-mkdir ./opencv_sifts
-	-mkdir ./hesaff_sifts
-	-mkdir ./feats
+	-mkdir opencv_models
+	-mkdir opencv_sifts
+	-mkdir hesaff_sifts
+	-mkdir feats
 	echo "You need to run both of the following commands:"
 	echo "source activate py2"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
