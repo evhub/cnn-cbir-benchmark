@@ -1,15 +1,22 @@
-# Create a text file with names of all .png files in mini dataset
-# for use in the cnn-cbir-benchmark repo
+"""
+Create a text file with names of all .png files in mini dataset
+for use in the cnn-cbir-benchmark repository.
+"""
 
 import os
-DATAPATH = '/home/mirlab/score-retrieval/data/mini_dataset/'
 
-files = []
-for (dirpath, dirnames, filenames) in os.walk(DATAPATH):
-    files.extend(filenames)
-    break
-files = [filename for filename in files if '.png' in filename] # only keep png files
+from score_retrieval.data import index_images
 
-with open('minidataset.txt', 'w') as f:
-    for item in files:
-        f.write("%s\n" % item)
+
+default_index_fpath = os.path.join(os.path.dirname(__file__), "data", "minidataset.txt")
+
+
+def write_index(index_fpath=default_index_fpath):
+    """Write index of image paths to given index_fpath."""
+    with open(index_fpath, "w") as index_file:
+        for _, path in index_images():
+            index_file.write("{}\n".format(path))
+
+
+if __name__ == "__main__":
+    write_index()

@@ -12,6 +12,10 @@ setup:
 	echo "source activate py2"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
 
+.PHONY: minidataset
+minidataset:
+	python ./create_txt.py
+
 .PHONY: yael
 yael:
 	svn checkout https://scm.gforge.inria.fr/anonscm/svn/yael/trunk yael
