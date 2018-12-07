@@ -27,7 +27,7 @@ for i, line in enumerate(content):
     print "%d(%d): %s" %(i+1, len(content), line)
     # hesaff_path = os.path.join(sift_dir, os.path.splitext(os.path.basename(line))[0] + '.hesaff.sift')
     hesaff_path = os.path.join(sift_dir, os.path.splitext(os.path.basename(line))[0] + '.opencv.sift')
-    hesaff_info = np.loadtxt(hesaff_path)
+    hesaff_info = np.loadtxt(hesaff_path, skiprows=2)  # np.loadtxt(hesaff_path)
     if hesaff_info.shape[0] == 0:
        continue
     elif hesaff_info.shape[0] > 0 and len(hesaff_info.shape) == 1:
