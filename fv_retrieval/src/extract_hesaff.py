@@ -19,7 +19,7 @@ def cpu_task(img_names, bbin, db_dir, save_dir):
             img_path = os.path.join(db_dir, line)
             cmd = bbin + ' ' + img_path + ' ' + save_dir
             os.system(cmd) # returns the exit status
-            print "%d(%d), %s" %(i+1, len(img_names), line)
+            print "%d(%d), cmd" %(i+1, len(img_names), cmd)
     except:
         import traceback
         traceback.print_exc()

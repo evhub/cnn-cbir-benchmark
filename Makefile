@@ -8,9 +8,10 @@ setup:
 	-mkdir opencv_sifts
 	-mkdir hesaff_sifts
 	-mkdir feats
-	echo "You need to run both of the following commands:"
+	echo "You need to run all of the following commands:"
 	echo "source activate py2"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
+	echo "export LD_LIBRARY_PATH=\"${LD_LIBRARY_PATH}\""
 
 .PHONY: minidataset
 minidataset:
