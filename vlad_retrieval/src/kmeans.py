@@ -77,7 +77,7 @@ niter = 0           # number of iterations (0 for convergence)
 redo = 1            # number of redo
 
 t0 = time.time()
-(centroids, qerr, dis, assign, nassign) = ynumpy.kmeans(v, k, nt = nt, niter = niter, redo = redo, output = 'full')
+(centroids, qerr, dis, assign, nassign) = ynumpy.kmeans(sample, k, nt = nt, niter = niter, redo = redo, output = 'full')
 t1 = time.time()
 print "kmeans performed in %.3f s" % (t1 - t0)
 
