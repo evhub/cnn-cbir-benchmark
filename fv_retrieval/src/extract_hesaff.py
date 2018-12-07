@@ -18,7 +18,7 @@ def cpu_task(img_names, bbin, db_dir, save_dir):
         for i, line in enumerate(img_names):
             img_path = os.path.join(db_dir, line)
             hesaff_path = img_path + ".hesaff.sift"
-            save_path = os.path.join(save_dir, os.path.splitext(os.path.basename(img_path))[0])
+            save_path = os.path.join(save_dir, os.path.splitext(os.path.basename(img_path))[0]) + ".hesaff.sift"
             print("{}/{}: {} > {}".format(i+1, len(img_names), img_path, save_path))
 
             cmd = bbin + ' ' + img_path
