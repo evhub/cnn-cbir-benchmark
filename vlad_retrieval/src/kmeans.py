@@ -17,6 +17,12 @@ with open(txt_path, 'r') as f:
 
 all_desc = []
 for i, line in enumerate(content):
+
+    # exclude query images
+    from score_retrieval.data import query_paths
+    if line in query_paths:
+        continue
+
     print "%d(%d): %s" %(i+1, len(content), line)
     hesaff_path = os.path.join(sift_dir, os.path.splitext(os.path.basename(line))[0] + '.hesaff.sift')
     hesaff_info = np.loadtxt(hesaff_path)

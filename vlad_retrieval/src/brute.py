@@ -45,6 +45,26 @@ def normalize(x, copy=False):
         #return x / np.sqrt((x ** 2).sum(-1))[..., np.newaxis]
 
 
+def query_score_images(query_paths, names, feats):
+    """Extract features from the scores dataset."""
+    query_names = []
+    imgs = []
+    query_feats = []
+
+    for path in query_paths:
+        name = os.path.basename(path)
+        query_names.append(name)
+
+        img = cv2.imread(path, 1)
+        imgs.append(img)
+
+        idx = names.index(name)
+        feat = feats[idx]
+        query_feats.append(feat)
+
+    return imgs, query_feats, query_names
+
+
 def query_images(groundtruth_dir, image_dir, dataset, names, cropped=True):
     """
     Extract features from the Oxford or Paris dataset.
@@ -148,14 +168,14 @@ def reranking(Q, data, inds, names, top_k = 50):
 
 if __name__ == '__main__':
 
-    gt_files = './datasets/gt_files'
-    dir_images = './datasets/oxford'
+    # gt_files = './datasets/gt_files'
+    # dir_images = './datasets/oxford'
 
     # query expansion
     do_QE = True
     topK = 5
     # crop
-    do_crop = False
+    # do_crop = False
     # reduced dim
     do_pca = False
     redud_d = 128
@@ -184,11 +204,16 @@ if __name__ == '__main__':
         _, whitening_params = run_feature_processing_pipeline(feats, d=redud_d, copy=True)
         feats, _ = run_feature_processing_pipeline(feats, params=whitening_params)
 
-    imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
+    # imgs, query_feats, query_names, fake_query_names = query_images(gt_files, dir_images, 'oxford', names, do_crop)
+    from score_retrieval.data import query_paths
+    imgs, query_feats, query_names = query_score_images(query_paths, names, feats)
 
     #print query_names
-    aps = []
-    rank_file = 'tmp.txt'
+    # aps = []
+    # rank_file = 'tmp.txt'
+
+    query_rankings = []
+
     for i, query in enumerate(query_names):
         Q = query_feats[i]
 
@@ -207,21 +232,42 @@ if __name__ == '__main__':
         if do_rerank:
             rank_names = reranking(Q, feats, idxs, rank_names, top_k = 50)
 
-        # write rank names to txt
-        f = open(rank_file, 'w')
-        f.writelines([name.split('.jpg')[0] + '\n' for name in rank_names])
-        f.close()
+        # get proper ranking for score_retrieval.eval
+        from score_retrieval.data import get_basename_to_path_dict
+        basename_to_path = get_basename_to_path_dict()
 
-        # compute mean average precision
-        gt_prefix = os.path.join(gt_files, fake_query_names[i])
-        cmd = './compute_ap %s %s' % (gt_prefix, rank_file)
-        ap = os.popen(cmd).read()
+        from score_retrieval.data import database_paths
+        path_ranking = []
+        for name in rank_names:
+            path = basename_to_path[name]
+            if path in database_paths:
+                path_ranking.append(path)
 
-        os.remove(rank_file)
+        from score_retrieval.eval import path_ranking_to_index_ranking
+        query_ranking = path_ranking_to_index_ranking(path_ranking)
+        query_rankings.append(query_ranking)
 
-        aps.append(float(ap.strip()))
+        # # write rank names to txt
+        # f = open(rank_file, 'w')
+        # f.writelines([name.split('.jpg')[0] + '\n' for name in rank_names])
+        # f.close()
 
-        print "%s, %f" %(query, float(ap.strip()))
+        # # compute mean average precision
+        # gt_prefix = os.path.join(gt_files, fake_query_names[i])
+        # cmd = './compute_ap %s %s' % (gt_prefix, rank_file)
+        # ap = os.popen(cmd).read()
 
-    print
-    print "mAP: %f" % np.array(aps).mean()
+        # os.remove(rank_file)
+
+        # aps.append(float(ap.strip()))
+
+        # print "%s, %f" %(query, float(ap.strip()))
+
+    # print
+    # print "mAP: %f" % np.array(aps).mean()
+
+    from score_retrieval.eval import compute_mrr, compute_acc
+    mrr = compute_mrr(query_rankings)
+    acc = compute_acc(query_rankings)
+
+    print("MRR = {}, accuracy = {}".format(mrr, acc))
