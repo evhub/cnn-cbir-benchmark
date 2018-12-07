@@ -6,15 +6,16 @@ This project tries to build a benchmark for image retrieval, particularly for In
 
 ## Running on Scores Dataset
 
-Only Fisher Vector is currently working on the scores dataset. To run FV,
+Fisher vector and VLAD are both currently working on the scores dataset. To run them,
 
 1. install `score-retrieval`,
 2. run `make`, follow the instructions, then run `make` again,
 3. run `make yael`,
-4. run `make minidataset`,
-5. run the commands in the `fv` make target manually (`make fv` isn't working right now for some reason).
+4. run `make hesaff`,
+5. run `make minidataset`,
+6. run the commands in the `fv` or `vlad` make target manually (`make fv`/`make vlad` isn't working right now for some reason).
 
-Note: The training parameters in `gmm.py` have been massively reduced for ease of testing. If you want a real training run, increase them.
+Note: For FV, the training parameters in `gmm.py` have been massively reduced for ease of testing. If you want a real training run, increase them.
 
 ## Methods
 
