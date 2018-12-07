@@ -8,7 +8,8 @@ import time
 
 
 txt_path = './data/minidataset.txt'
-sift_dir = './hesaff_sifts/'  # '/home/yuanyong/py/fv_retrieval/oxford_hesaff_sift'
+# sift_dir = './hesaff_sifts/'  # '/home/yuanyong/py/fv_retrieval/oxford_hesaff_sift'
+sift_dir = "./opencv_sifts"
 
 with open(txt_path, 'r') as f:
     content = f.readlines()
@@ -24,7 +25,8 @@ for i, line in enumerate(content):
         continue
 
     print "%d(%d): %s" %(i+1, len(content), line)
-    hesaff_path = os.path.join(sift_dir, os.path.splitext(os.path.basename(line))[0] + '.hesaff.sift')
+    # hesaff_path = os.path.join(sift_dir, os.path.splitext(os.path.basename(line))[0] + '.hesaff.sift')
+    hesaff_path = os.path.join(sift_dir, os.path.splitext(os.path.basename(line))[0] + '.opencv.sift')
     hesaff_info = np.loadtxt(hesaff_path)
     if hesaff_info.shape[0] == 0:
        continue

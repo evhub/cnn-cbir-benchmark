@@ -52,7 +52,7 @@ fc: minidataset
 
 .PHONY: vlad
 vlad: minidataset
-	python2 ./fv_retrieval/src/extract_hesaff.py
+	python2 ./fv_retrieval/src/extract_opencvsift.py
 	python2 ./vlad_retrieval/src/kmeans.py
 	python2 ./vlad_retrieval/src/vlad.py
 	python2 ./vlad_retrieval/src/brute.py
