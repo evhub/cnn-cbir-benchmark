@@ -15,7 +15,7 @@ Fisher vector and VLAD are both currently working on the scores dataset. To run 
 5. run `make minidataset`,
 6. run the commands in the `fv` or `vlad` make target manually (`make fv`/`make vlad` isn't working right now for some reason).
 
-Note: For FV, the training parameters in `gmm.py` have been massively reduced for ease of testing. If you want a real training run, increase them.
+Note: The training parameters in `gmm.py` (for FV) and `kmeans.py` (for VLAD) have been massively reduced for ease of testing. If you want a real training run, increase them.
 
 ## Methods
 
