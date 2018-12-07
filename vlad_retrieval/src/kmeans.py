@@ -69,7 +69,7 @@ print "start train kmeans ......."
 
 print sample.shape[0]
 
-k = 64  # 128           # number of cluster to create
+k = 32  # 128           # number of cluster to create
 d = sample.shape[1]     # dimensionality of the vectors
 n = sample.shape[0]     # number of vectors
 nt = 20                 # number of threads to use
