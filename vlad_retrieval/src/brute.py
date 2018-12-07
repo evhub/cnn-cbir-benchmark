@@ -183,7 +183,7 @@ if __name__ == '__main__':
 
     # load all features
     start = timeit.default_timer()
-    h5f = h5py.File('./vlad_retrieval/models/vlad_128_8192.h5', 'r')
+    h5f = h5py.File('./models/vlad_128_8192.h5', 'r')
     feats = h5f['feats']
     names = list(h5f['names'])
     stop = timeit.default_timer()
