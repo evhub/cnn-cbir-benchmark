@@ -56,8 +56,10 @@ all_desc = np.sqrt(np.vstack(all_desc))
 #    all_desc[i] = np.sign(all_desc[i]) * np.log(1.0 + np.abs(all_desc[i]))
 
 
-k = 32  # 128
-n_sample = 256 * 100  # 256 * 1000
+k = 128
+# k = 32  # for ease of testing
+n_sample = 256 * 1000
+# n_sample = 256 * 100  # for ease of testing
 
 # choose n_sample descriptors at random
 np.random.seed(1024)
@@ -84,8 +86,8 @@ sample = np.dot(sample, pca_transform)
 
 # train GMM
 print "start train GMM ......."
-# gmm = ynumpy.gmm_learn(sample, k, nt = 400, niter = 2000, seed = 0, redo = 1, use_weights = True)
-gmm = ynumpy.gmm_learn(sample, k, nt = 50, niter = 1000, seed = 0, redo = 1, use_weights = True)
+gmm = ynumpy.gmm_learn(sample, k, nt = 400, niter = 2000, seed = 0, redo = 1, use_weights = True)
+# gmm = ynumpy.gmm_learn(sample, k, nt = 50, niter = 1000, seed = 0, redo = 1, use_weights = True)  # for ease of testing
 
 np.save("./opencv_models/weight.gmm", gmm[0])
 np.save("./opencv_models/mu.gmm", gmm[1])

@@ -69,12 +69,19 @@ print "start train kmeans ......."
 
 print sample.shape[0]
 
-k = 32  # 128           # number of cluster to create
-d = sample.shape[1]     # dimensionality of the vectors
-n = sample.shape[0]     # number of vectors
-nt = 20                 # number of threads to use
-niter = 0               # number of iterations (0 for convergence)
-redo = 1                # number of redo
+# number of cluster to create
+k = 128
+# k = 32  # for ease of testing
+# dimensionality of the vectors
+d = sample.shape[1]
+# number of vectors
+n = sample.shape[0]
+# number of threads to use
+nt = 20
+# number of iterations (0 for convergence)
+niter = 0
+# number of redo
+redo = 1
 
 t0 = time.time()
 (centroids, qerr, dis, assign, nassign) = ynumpy.kmeans(sample, k, nt = nt, niter = niter, redo = redo, output = 'full')
