@@ -56,7 +56,8 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool()
 
     parts = 10
-    txt_path = './data/minidataset.txt'
+    from score_retrieval.constants import DEFAULT_DATASET
+    txt_path = './data/{}.txt'.format(DEFAULT_DATASET)
     db_dir = ''  # ./datasets/oxford
     save_dir = './opencv_sifts/'
 

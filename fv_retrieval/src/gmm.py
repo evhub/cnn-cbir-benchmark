@@ -6,7 +6,8 @@ import os
 import numpy as np
 from yael import ynumpy
 
-txt_path = './data/minidataset.txt'
+from score_retrieval.constants import DEFAULT_DATASET
+txt_path = './data/{}.txt'.format(DEFAULT_DATASET)
 sift_dir = './opencv_sifts'
 
 with open(txt_path, 'r') as f:

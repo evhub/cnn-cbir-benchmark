@@ -7,7 +7,8 @@ from yael import ynumpy
 import time
 
 
-txt_path = './data/minidataset.txt'
+from score_retrieval.constants import DEFAULT_DATASET
+txt_path = './data/{}.txt'.format(DEFAULT_DATASET)
 # sift_dir = './hesaff_sifts/'  # '/home/yuanyong/py/fv_retrieval/oxford_hesaff_sift'
 sift_dir = "./opencv_sifts"
 

@@ -14,7 +14,8 @@ pca_transform = np.load('./models/pca_data.npy')
 mean = np.load('./models/mean_data.npy')
 
 #
-txt_path = './data/minidataset.txt'
+from score_retrieval.constants import DEFAULT_DATASET
+txt_path = './data/{}.txt'.format(DEFAULT_DATASET)
 with open(txt_path, 'r') as f:
     content = f.readlines()
     content = [x.strip() for x in content]

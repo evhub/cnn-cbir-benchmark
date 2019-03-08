@@ -38,7 +38,8 @@ if __name__ == '__main__':
 
     parts = 10
     bbin = './hesaff/hesaff'
-    txt_path = './data/minidataset.txt'
+    from score_retrieval.constants import DEFAULT_DATASET
+    txt_path = './data/{}.txt'.format(DEFAULT_DATASET)
     db_dir = ''  # ./datasets/oxford
     save_dir = './hesaff_sifts/'
 

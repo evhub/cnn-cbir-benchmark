@@ -14,8 +14,8 @@ setup:
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
 	echo "export LD_LIBRARY_PATH=\"${LD_LIBRARY_PATH}\""
 
-.PHONY: minidataset
-minidataset:
+.PHONY: setup-dataset
+setup-dataset:
 	python ./create_txt.py
 
 .PHONY: yael
@@ -40,20 +40,20 @@ clean:
 	find . -name '__pycache__' -delete
 
 .PHONY: fv
-fv: minidataset
-	python2 ./fv_retrieval/src/extract_opencvsift.py
-	python2 ./fv_retrieval/src/gmm.py
-	python2 ./fv_retrieval/src/fv.py
-	python2 ./fv_retrieval/src/brute.py
+fv: setup-dataset
+	python2 ./fv_retrieval/src/extract_opencvsift.py \
+	&& python2 ./fv_retrieval/src/gmm.py \
+	&& python2 ./fv_retrieval/src/fv.py \
+	&& python2 ./fv_retrieval/src/brute.py
 
 .PHONY: vlad
-vlad: minidataset
-	python2 ./fv_retrieval/src/extract_opencvsift.py
-	python2 ./vlad_retrieval/src/kmeans.py
-	python2 ./vlad_retrieval/src/vlad.py
-	python2 ./vlad_retrieval/src/brute.py
+vlad: setup-dataset
+	python2 ./fv_retrieval/src/extract_opencvsift.py \
+	&& python2 ./vlad_retrieval/src/kmeans.py \
+	&& python2 ./vlad_retrieval/src/vlad.py \
+	&& python2 ./vlad_retrieval/src/brute.py
 
 .PHONY: fc
-fc: minidataset
-	python2 ./fc_retrieval/src/oxford5k_feats_extract.py
-	python2 ./fc_retrieval/src/brute.py
+fc: setup-dataset
+	python2 ./fc_retrieval/src/oxford5k_feats_extract.py \
+	&& python2 ./fc_retrieval/src/brute.py

@@ -17,7 +17,8 @@ pca_transform = np.load('./opencv_models/pca_transform.gmm.npy')
 gmm = [weights, mu, sigma]
 
 # read names
-txt_path = './data/minidataset.txt'
+from score_retrieval.constants import DEFAULT_DATASET
+txt_path = './data/{}.txt'.format(DEFAULT_DATASET)
 with open(txt_path, 'r') as f:
     content = f.readlines()
     content = [x.strip() for x in content]
