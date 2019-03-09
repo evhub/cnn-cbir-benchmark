@@ -59,9 +59,8 @@ all_desc = np.sqrt(np.vstack(all_desc))
 
 k = 128
 # k = 32  # for ease of testing
-n_sample = 256 * 500  # to fix memory errors
 # n_sample = 256 * 1000  # original
-# n_sample = 256 * 100  # for ease of testing
+n_sample = 256 * 100  # fixes memory issues
 
 # choose n_sample descriptors at random
 np.random.seed(1024)
