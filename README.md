@@ -35,6 +35,6 @@ the methods on above have the following characteristics:
 - **Time - tested**
 - **Used in industry**
 
-## Contr<!-- ibution
+## Contribution
 
-If you are interested in this project, feel free to contribute your code. Only Python and --> C++ code are accepted.
+If you are interested in this project, feel free to contribute your code. Only Python and C++ code are accepted.
