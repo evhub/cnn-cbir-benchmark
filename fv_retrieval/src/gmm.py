@@ -15,46 +15,53 @@ with open(txt_path, 'r') as f:
     content = [x.strip() for x in content]
 
 
-all_desc = []
-for i, line in enumerate(content):
+desc_path = "./descs/{}.npy".format(DEFAULT_DATASET)
+if os.path.exists(desc_path):
+    np.load(desc_path)
 
-    # exclude query images
-    from score_retrieval.data import query_paths
-    if line in query_paths:
-        continue
+else:
+    all_desc = []
+    for i, line in enumerate(content):
 
-    print "%d(%d): %s" %(i+1, len(content), line)
-    hesaff_path = os.path.join(sift_dir, os.path.splitext(os.path.basename(line))[0] + '.opencv.sift')
-    hesaff_info = np.loadtxt(hesaff_path, skiprows=2)
-    if hesaff_info.shape[0] == 0:
-       continue
-    elif hesaff_info.shape[0] > 0 and len(hesaff_info.shape) == 1:
-        desc = hesaff_info[5:]
-        all_desc.append(desc)
-    elif hesaff_info.shape[0] > 0 and len(hesaff_info.shape) > 1:
-        desc = hesaff_info[:, 5:]
-        all_desc.append(desc)
+        # exclude query images
+        from score_retrieval.data import query_paths
+        if line in query_paths:
+            continue
+
+        print "%d(%d): %s" %(i+1, len(content), line)
+        hesaff_path = os.path.join(sift_dir, os.path.splitext(os.path.basename(line))[0] + '.opencv.sift')
+        hesaff_info = np.loadtxt(hesaff_path, skiprows=2)
+        if hesaff_info.shape[0] == 0:
+           continue
+        elif hesaff_info.shape[0] > 0 and len(hesaff_info.shape) == 1:
+            desc = hesaff_info[5:]
+            all_desc.append(desc)
+        elif hesaff_info.shape[0] > 0 and len(hesaff_info.shape) > 1:
+            desc = hesaff_info[:, 5:]
+            all_desc.append(desc)
 
 
-# make a big matrix with all image descriptors
-all_desc = np.sqrt(np.vstack(all_desc))
-#n_sifts = all_desc.shape[0]
-#for i in range(n_sifts):
-#    if np.linalg.norm(all_desc[i], ord=2) == 0.0:
-#        continue
-#    all_desc[i] = all_desc[i]/np.linalg.norm(all_desc[i], ord=2)
+    # make a big matrix with all image descriptors
+    all_desc = np.sqrt(np.vstack(all_desc))
+    #n_sifts = all_desc.shape[0]
+    #for i in range(n_sifts):
+    #    if np.linalg.norm(all_desc[i], ord=2) == 0.0:
+    #        continue
+    #    all_desc[i] = all_desc[i]/np.linalg.norm(all_desc[i], ord=2)
 
-# sift: root-sift
-#n_sifts = all_desc.shape[0]
-#for i in range(n_sifts):
-    #if np.linalg.norm(all_desc[i], ord=1) == 0.0:
-    #    continue
-    #all_desc[i] = np.sqrt(all_desc[i]/np.linalg.norm(all_desc[i], ord=1))
+    # sift: root-sift
+    #n_sifts = all_desc.shape[0]
+    #for i in range(n_sifts):
+        #if np.linalg.norm(all_desc[i], ord=1) == 0.0:
+        #    continue
+        #all_desc[i] = np.sqrt(all_desc[i]/np.linalg.norm(all_desc[i], ord=1))
 
-# sift: sign(x)log(1 + |x|)
-#n_sifts = all_desc.shape[0]
-#for i in range(n_sifts):
-#    all_desc[i] = np.sign(all_desc[i]) * np.log(1.0 + np.abs(all_desc[i]))
+    # sift: sign(x)log(1 + |x|)
+    #n_sifts = all_desc.shape[0]
+    #for i in range(n_sifts):
+    #    all_desc[i] = np.sign(all_desc[i]) * np.log(1.0 + np.abs(all_desc[i]))
+
+    np.save(desc_path, all_desc)
 
 
 k = 128

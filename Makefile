@@ -9,6 +9,7 @@ setup:
 	-mkdir hesaff_sifts
 	-mkdir feats
 	-mkdir models
+	-mkdir descs
 	echo "You need to run all of the following commands:"
 	echo "source activate py2"
 	echo "export PYTHONPATH=\"${PYTHONPATH}\""
