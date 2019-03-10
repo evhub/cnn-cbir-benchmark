@@ -88,8 +88,7 @@ sample = np.dot(sample, pca_transform)
 # train GMM
 print "start train GMM ......."
 # gmm = ynumpy.gmm_learn(sample, k, nt = 400, niter = 2000, seed = 0, redo = 1, use_weights = True)  # original
-gmm = ynumpy.gmm_learn(sample, k, nt = 200, niter = 2000, seed = 0, redo = 1, use_weights = True)  # fixes memory issues
-# gmm = ynumpy.gmm_learn(sample, k, nt = 50, niter = 1000, seed = 0, redo = 1, use_weights = True)  # for ease of testing
+gmm = ynumpy.gmm_learn(sample, k, nt = 50, niter = 1000, seed = 0, redo = 1, use_weights = True)  # fixes memory issues
 
 np.save("./opencv_models/weight.gmm", gmm[0])
 np.save("./opencv_models/mu.gmm", gmm[1])
