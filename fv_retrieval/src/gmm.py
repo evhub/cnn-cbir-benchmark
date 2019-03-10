@@ -17,7 +17,7 @@ with open(txt_path, 'r') as f:
 
 desc_path = "./descs/{}.npy".format(DEFAULT_DATASET)
 if os.path.exists(desc_path):
-    np.load(desc_path)
+    all_desc = np.load(desc_path)
 
 else:
     all_desc = []
