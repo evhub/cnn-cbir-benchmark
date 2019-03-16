@@ -6,8 +6,8 @@ import os
 import numpy as np
 from yael import ynumpy
 
-from score_retrieval.constants import DEFAULT_DATASET
-txt_path = './data/{}.txt'.format(DEFAULT_DATASET)
+from score_retrieval.data import datasets_str
+txt_path = './data/{}.txt'.format(datasets_str)
 sift_dir = './opencv_sifts'
 
 with open(txt_path, 'r') as f:
@@ -15,7 +15,7 @@ with open(txt_path, 'r') as f:
     content = [x.strip() for x in content]
 
 
-desc_path = "./descs/{}.npy".format(DEFAULT_DATASET)
+desc_path = "./descs/{}.npy".format(datasets_str)
 if os.path.exists(desc_path):
     all_desc = np.load(desc_path)
 
